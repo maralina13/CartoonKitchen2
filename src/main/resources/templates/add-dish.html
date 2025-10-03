@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:fragment="title">Добавить блюдо</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+    <title th:fragment="title">Добавить блюдо</title>
+
+    <div th:fragment="content" class="container py-4">
+        <h1 class="mb-3">Добавить блюдо</h1>
+
+        <form th:action="@{/dishes/add}" method="post" th:object="${dishDto}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <div class="mb-3">
+                <label class="form-label">Название</label>
+                <input class="form-control" th:field="*{name}">
+                <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Категория</label>
+                <input class="form-control" th:field="*{categoryName}">
+                <div class="text-danger" th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Ингредиенты (выбор из списка)</label>
+                <select class="form-select" multiple th:field="*{ingredientIds}">
+                    <option th:each="ing : ${ingredients}" th:value="${ing.id}" th:text="${ing.name}"></option>
+                </select>
+                <div class="form-text">Зажмите Ctrl/Cmd для множественного выбора.</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Новые ингредиенты (если нет в списке)</label>
+                <div id="newIngredientsBox" class="vstack gap-2">
+                    <input class="form-control" th:field="*{newIngredients}" placeholder="Новый ингредиент">
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary mt-2" id="addNewIngBtn">+ Добавить ещё</button>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Шаги рецепта</label>
+                <div id="stepsBox" class="vstack gap-2">
+                    <input class="form-control" th:field="*{stepDescriptions}" placeholder="Шаг 1">
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary mt-2" id="addStepBtn">+ Добавить шаг</button>
+                <div class="text-danger" th:if="${#fields.hasErrors('stepDescriptions')}" th:errors="*{stepDescriptions}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">URL итогового изображения</label>
+                <input class="form-control" th:field="*{finalImageUrl}" placeholder="https://...">
+                <div class="text-danger" th:if="${#fields.hasErrors('finalImageUrl')}" th:errors="*{finalImageUrl}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">URL мульт-изображения (необязательно)</label>
+                <input class="form-control" th:field="*{cartoonImageUrl}" placeholder="https://...">
+            </div>
+
+            <button class="btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addIngBtn = document.getElementById('addNewIngBtn');
+        const ingBox = document.getElementById('newIngredientsBox');
+        if (addIngBtn && ingBox) {
+            addIngBtn.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.className = 'form-control';
+                input.name = 'newIngredients';
+                input.placeholder = 'Новый ингредиент';
+                ingBox.appendChild(input);
+            });
+        }
+
+        const addStepBtn = document.getElementById('addStepBtn');
+        const stepsBox = document.getElementById('stepsBox');
+        if (addStepBtn && stepsBox) {
+            addStepBtn.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.className = 'form-control';
+                input.name = 'stepDescriptions';
+                input.placeholder = 'Следующий шаг';
+                stepsBox.appendChild(input);
+            });
+        }
+    });
+</script>
+</body>
+</html>

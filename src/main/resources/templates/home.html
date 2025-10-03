@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+
+<head>
+  <title>Cartoon Kitchen</title>
+</head>
+
+<body>
+<div th:fragment="content" class="container mt-4">
+
+  <h1 class="text-center mb-4">
+    Добро пожаловать в <strong>Cartoon Kitchen</strong>!
+  </h1>
+
+  <form class="row g-2 align-items-center mb-4" th:action="@{/}" method="get">
+    <input type="hidden" name="query" th:value="${query}">
+    <div class="col-auto">
+      <label for="sort" class="col-form-label">Сортировать:</label>
+    </div>
+    <div class="col-auto">
+      <select id="sort" name="sort" class="form-select" onchange="this.form.submit()"
+              th:value="${sort}">
+        <option th:value="'name,asc'">По названию A→Я</option>
+        <option th:value="'name,desc'">По названию Я→A</option>
+      </select>
+    </div>
+
+    <div class="col-auto">
+      <select name="size" class="form-select" onchange="this.form.submit()" th:value="${size}">
+        <option th:value="8">8 на странице</option>
+        <option th:value="16">16 на странице</option>
+        <option th:value="24">24 на странице</option>
+      </select>
+    </div>
+  </form>
+
+  <h3 class="mb-3">Блюда:</h3>
+  <div class="row" th:each="dish : ${dishes}">
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <img th:if="${dish.cartoonImageUrl != null}" th:src="${dish.cartoonImageUrl}"
+             class="card-img-top" alt="Картинка блюда"/>
+        <div class="card-body">
+          <h5 class="card-title">
+            <a th:href="@{/dishes/{id}(id=${dish.id})}" th:text="${dish.name}">Название</a>
+          </h5>
+          <p class="card-text text-muted"
+             th:text="${#strings.abbreviate(dish.recipe, 120)}">
+            Краткое описание
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

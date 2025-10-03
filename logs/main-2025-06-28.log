@@ -1,0 +1,12 @@
+2025-06-28 20:51:30 [http-nio-8081-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /favicon.ico
+2025-06-28 20:51:30 [http-nio-8081-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-28 20:51:30 [http-nio-8081-exec-1] DEBUG o.s.s.web.DefaultRedirectStrategy - Redirecting to http://localhost:8081/login
+2025-06-28 20:51:30 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1d11h11m10s958ms113µs200ns).
+2025-06-28 20:51:30 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /login
+2025-06-28 20:51:30 [http-nio-8081-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /login
+2025-06-28 20:51:30 [http-nio-8081-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-06-28 20:51:33 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-28 20:51:34 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-06-28 20:51:34 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-28 20:51:34 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-28 20:51:34 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

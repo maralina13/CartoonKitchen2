@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои избранные</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container my-4">
+    <h2 class="mb-3">Мои избранные</h2>
+
+    <div th:if="${#lists.isEmpty(dishes)}" class="alert alert-info">
+        Пока пусто. Найдите блюдо и нажмите «❤ Избранное».
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3" th:if="${!#lists.isEmpty(dishes)}">
+        <div class="col" th:each="d : ${dishes}">
+            <div class="card h-100">
+                <img th:if="${d.imageUrl}" th:src="${d.imageUrl}" class="card-img-top" alt="...">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title" th:text="${d.name}">Название</h5>
+                    <a class="btn btn-primary mt-auto" th:href="@{|/dishes/${d.id}|}">Открыть</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
